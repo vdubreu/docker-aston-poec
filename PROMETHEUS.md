@@ -1,4 +1,4 @@
-# Install Prometheus
+# Local Install Prometheus 
 Monitoring Docker
 
 ## Install
@@ -6,6 +6,7 @@ Monitoring Docker
 cd 
 wget https://github.com/prometheus/prometheus/releases/download/v2.25.0/prometheus-2.25.0.linux-amd64.tar.gz
 tar -zxvf prometheus-2.25.0.linux-amd64.tar.gz
+cd prometheus-2.25.0.linux-amd64
 sudo cp prometheus /usr/local/bin
 prometheus --config.file=prometheus.yml
 # web browser

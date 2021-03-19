@@ -3,8 +3,8 @@ Docker training course POEC
 
 ## Prerequisite for ubuntu 
 ```shell
-sudo apt   update   # update all packages repo
-sudo apt -y upgrade   # upgrade all packages
+sudo apt update   # update all packages repo
+sudo apt upgrade  #  upgrade all packages
 sudo apt -y install git wget          # install git and wget 
 sudo apt -y install htop iotop iftop  # added monitoring tools
 sudo apt-get -y install python3 python3-venv # install python3 and virtualenv
@@ -12,17 +12,18 @@ sudo apt-get -y install build-essential   # need for installing docker-compose
 sudo apt-get -y install python3-dev libxml2-dev libxslt-dev libffi-dev # need for installing docker-compose
 htop  # check your vm config
 Crtl-c  # exit 
-# Deploy playbook.yml to your vm
+# Deploy playbook.yml and inventory files to your vm
 ``` 
 ## install docker Community-Edition
 ```shell script
+cd docker-aston-poec
 python3 -m venv venv  # set up the module venv in the directory venv
 source venv/bin/activate  # activate the virtualenv python
 pip install --upgrade pip
 pip3 install wheel  # set for permissions purpose
 pip3 install ansible # install ansible 
 pip3 install requests # extra packages
-ansible --version # check the version number # should be the latest 2.9.9+ 
+ansible --version # check the version number # should be the latest 2.10.7 
 ansible-playbook -i inventory playbook.yml # run the playbook for installing docker
 ```
 Log out from your ssh session and log in again so all changes will take effect.  
@@ -37,12 +38,12 @@ hostname
 exit
 docker start mycontainer
 docker attach mycontainer
-#Faire Ctrl-p et Ctrl-q
+#do a Ctrl-p et Ctrl-q
 docker ps
-docker stop et docker rm ou brutalement docker rm -f 
+docker stop et  docker rm or in one command docker rm -f 
 docker run -d --name mycontainer alpine
 ```
-## Docker pause et unpause
+### Docker pause et unpause
 ```shell
 docker run -d --name mytest ubuntu /bin/bash -c "while true; do date ; sleep 5; done"
 docker ps
@@ -53,7 +54,7 @@ docker unpause mytest
 docker logs mytest
 ```
 
-## Clean up
+### Clean up
 ```shell
 docker stop $(docker ps -aq)
 docker rm $(docker ps -aq)
@@ -61,7 +62,7 @@ docker rm -f $(docker ps -aq)
 docker rmi  $(docker images -q)
 ```
 
-## See some changes inside a container
+### See some changes inside a container
 ```shell
 docker run -it --name test ubuntu
 touch { abc,def,ghi}
@@ -71,7 +72,7 @@ exit
 docker diff test
 ```
 
-## 4 ways for creating a Docker image 
+### 4 ways for creating a Docker image 
 ```shell
 # first way  commit ( from a container )
 docker run -it --name test alpine
@@ -122,14 +123,14 @@ if __name__ == "__main__":
 FLASK_APP=/opt/app.py flask run --host=0.0.0.0
 ```
 
-## How to write a Dockerfile
+### How to write a Dockerfile
 ```shell
 history
 # copy and paste in a Dockerfile
 # add dockerfile DSL keywords
 
 ```
-## Final Dockerfile 
+### Final Dockerfile 
 ```shell
 FROM ubuntu
 
@@ -140,19 +141,19 @@ pip3 install flask
 COPY app.py /opt
 ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0
 ```
-## build an image
+### build an image
 ```shell
 docker build -t web-flask .
 docker run -d --name web -p 5000:5000 web-flask
 ```
 
-## Check metadata
+### Check metadata for security reason
 ```shell
 docker pull systemdevformations/ubuntu_ssh:v2
 docker history systemdevformations/ubuntu_ssh:v2
 ```
 
-## Create an image repository
+### Create an image repository
 ```shell
 docker run -d -p 5000:5000 --name registry registry:2
 docker pull ubuntu
@@ -163,7 +164,7 @@ docker push localhost:5000/myfirstimage
 http://ip:5000/v2/_catalog
 ```
 
-# Push an image to Docker hub
+### Push an image to Docker hub
 ```shell
 docker login -u <docker_hub_account> -p <password>
 docker pull ubuntu
@@ -171,7 +172,7 @@ docker image tag ubuntu <docker_hub_account>/myfirstimage
 docker push <docker_hub_account>/myfirstimage
 # check docker hub
 ```
-# Create an image from an ISO
+### Create an image from an ISO
 ```shell
 cd
 sudo apt-get -y install libguestfs-tools
@@ -188,19 +189,19 @@ docker commit alpes alpine:3.2
 docker images
 ````
 
-## Service
+### Service
 ```shell
 docker run -d --name web-flask <docker_hub>/webxxxx
 docker logs web-flask
 docker inspect --format='{{.NetworkSettings.IPAddress}}' web-flask
 wget -qO <ip>:5000
 ```
-## Expose
+### Expose
 ```
-docker run -d -p 80:80 apache2
+#docker run -d -p 80:80 apache2
 ```
 
-## Volume
+### Volume
 ```shell
 docker pull gekkopromo/docker-volume
 docker inspect gekkopromo/docker-volume
@@ -213,14 +214,14 @@ docker volume ls -qf dangling=true
 docker volume prune
 ```
 
-## Gitlab 
+### Gitlab 
 ```shell
 docker run -it -d  -p 80:80 -p 443:443 -p 2222:22  -v /opt/gitlab/logs:/var/log/gitlab -v /opt/gitlab/data:/var/opt/gitlab --name gitlab gitlab/gitlab-ce:8.14.4-ce.0
 ```
-# Supervisored
+### Supervisored
 fork and clone https://github.com/ambient-docker/supervisored.git
 ```shell
-cd suoervisored
+cd supervisored
 docker build -t supervisored .
 docker run -d --name super supervisored
 docker logs super
@@ -230,21 +231,21 @@ ctrl-c
 
 ```
 
-## Volume -from 
+### Volume -from 
 ```shell
 docker run --name datavol -v /DataMount busybox:latest /bin/true
 docker run -it --volumes-from datavol ubuntu /bin/bash
 ```
 
-## Docker in Docker
+### Docker in Docker
 ```shell
 docker run -it -v /var/run/docker.sock:/var/run/docker.sock ubuntu:latest sh -c "apt-get update ; apt-get install docker.io -y ; bash"
 ```
-## Portainer
+### Portainer
 ```shell
 docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer -H unix:///var/run/docker.sock 
 ```
-## Links
+### Links
 ```shell
 docker run --rm --name example -it busybox:latest
 cat /etc/hosts
@@ -253,10 +254,10 @@ docker run --rm --link example:ex -it busybox:latest
 cat /etc/hosts
 env
 ```
-## Application todo-flask-postgres
-
-
-
+### Application todo-flask-postgres
+fork and clone 
+```https://github.com/system-dev-formations/todo-flask-postgres.git``` 
+and follow the README.md
 
 
 
