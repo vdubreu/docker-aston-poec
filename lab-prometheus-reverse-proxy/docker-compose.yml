@@ -8,6 +8,9 @@ services:
   prometheus:
     hostname: prometheus
     image: prom/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.enable-admin-api"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
