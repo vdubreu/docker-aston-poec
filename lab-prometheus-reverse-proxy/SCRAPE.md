@@ -11,7 +11,7 @@ select prometheus_tsdb_storage_blocks_bytes
 select node_load1  
 select node_netstat_Tcp_InSegs  
 
-## Add an other node-exporter for postgresql
+## For example add a postgresql node-exporter
 ```shell
 docker run -d --net=host -it --rm -e POSTGRES_PASSWORD=password postgres
 # Connect to it
