@@ -259,7 +259,17 @@ fork and clone
 ```https://github.com/system-dev-formations/todo-flask-postgres.git``` 
 and follow the README.md
 
+## Additional Docker concepts
 
+See: 
+lab-chaining-commands
+lab-cmd-entrypoint
+lab-create-dockerfile
+lab-distroless
+lab-go-webserver
+lab-minimal-image
+lab-registry-proxy
+lab-pipework
 
 
 

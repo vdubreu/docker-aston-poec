@@ -1,8 +1,9 @@
-# Lab-reverse-proxy
-## Launch 2 containers  
+# Lab-prometheus-reverse-proxy
+## Launch 2 containers prometheus and node-exporter 
 
 ```shell
 # start prometheus and node-exporter
+cd lab-prometheus-reverse-proxy
 docker-compose up -d
 ```
 ## install nginx as reverse-proxy
@@ -65,6 +66,9 @@ iptables -A INPUT -p tcp -s localhost --dport 9090 -j ACCEPT
 iptables -A INPUT -p tcp --dport 9090 -j DROP
 iptables -L
 ```
+
+
+
 
 
 

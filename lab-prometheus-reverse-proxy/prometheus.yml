@@ -13,6 +13,7 @@ alerting:
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
+  - "prometheus_rules.yml"
 # - "first_rules.yml"
 # - "second_rules.yml"
 
@@ -34,3 +35,4 @@ scrape_configs:
       - targets: ['node-exporter:9100']
       #- targets: ['170.75.170.146:9187']
       #- targets: ['170.75.170.146:5000']
+      #- targets: ['170.75.170.146:9323']
