@@ -1,5 +1,7 @@
 [local]
 localhost ansible_connection=local ansible_ssh_user=ubuntu
+u1 ansible_connection=172.145.34.23
+
 
 
 
